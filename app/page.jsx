@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [price, setPrice] = useState(null);
-  const [token, setToken] = useState("Bitcoin");
+  const [token, setToken] = useState("bitcoin");
   const [tokenCount, setTokenCount] = useState("");
   const [data, setData] = useState("");
   const selectedTokenRef = useRef(null);
