@@ -1,9 +1,12 @@
 "use client";
+import { data } from "autoprefixer";
 import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [price, setPrice] = useState(null);
   const [token, setToken] = useState("Bitcoin");
+  const [tokenCount, setTokenCount] = useState("");
+  const [data, setData] = useState("");
   const selectedTokenRef = useRef(null);
 
   const selectToken = (e) => {
@@ -22,20 +25,45 @@ export default function Home() {
       .then((data) => {
         // Once we have the data, we can access the current price of Bitcoin
         // from the "data" object
-        console.log(data, "Data");
-        let tokenPrice;
-        if (token === "Bitcoin") {
-          tokenPrice = data.bitcoin.usd;
-        } else {
-          tokenPrice = data.ethereum.usd;
-        }
+
+        //console.log(data[`${token}`].usd, "Data");
         // Update the price state variable with the fetched data
-        setPrice(tokenPrice);
+        setPrice(data[`${token}`].usd);
       });
   }, [token]);
 
+  useEffect(() => {
+    fetch("/api/tokenList")
+      .then((response) => response.json())
+      .then(({ data }) => {
+        setData(
+          data.map((data) => {
+            return data;
+          })
+        );
+        setTokenCount(data.length);
+      });
+  }, []);
+
+  //console.log(tokenCount, "Token count");
+
+  if (!data) {
+    return (
+      <div className="bg-black text-white flex items-center justify-center w-full h-screen">
+        <div>Loading ...</div>
+      </div>
+    );
+  }
+
+  /*
+
+        {data.map((data) => (
+          <h1 key={data._id}>{data.id}</h1>
+        ))}
+  */
   return (
     <div className="bg-black flex flex-col items-center justify-center w-full h-screen mx-auto text-white">
+      <div>Tokens listed: {tokenCount}</div>
       <div className="text-white flex flex-col">
         <form>
           <label htmlFor="token">Choose Token:</label>
@@ -45,8 +73,11 @@ export default function Home() {
             name="token"
             ref={selectedTokenRef}
           >
-            <option value="Bitcoin">Bitcoin</option>
-            <option value="Ethereum">Ethereum</option>
+            {data.map((data) => (
+              <option key={data._id} value={data.id}>
+                {data.id}
+              </option>
+            ))}
           </select>
           <br />
           <button
@@ -60,6 +91,7 @@ export default function Home() {
       <div>
         Actual price for {token}/USD price is: {price}
       </div>
+      <div></div>
     </div>
   );
 }
