@@ -5,7 +5,7 @@ import { CRYPTOCURRENCIES } from "../configs";
 
 const useTicker = () => {
   const [cryptocurrencies, setCryptocurrencies] = useState(CRYPTOCURRENCIES);
-  console.log(cryptocurrencies);
+  //console.log(cryptocurrencies);
 
   const fetchCrypto = useCallback(async () => {
     try {
@@ -15,7 +15,7 @@ const useTicker = () => {
         )}`
       );
       const data = await response.json();
-      console.log(data, "data from Hook");
+      //console.log(data, "data from Hook");
 
       setCryptocurrencies(
         cryptocurrencies.map((crypto) => {

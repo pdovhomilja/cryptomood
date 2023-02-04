@@ -39,6 +39,7 @@ const SocketHandler = (req, res) => {
       });
     });
   }
+  res.status(200).send("Socket is running");
   res.end();
 };
 
