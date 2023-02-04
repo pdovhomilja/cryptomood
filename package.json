@@ -16,6 +16,7 @@
     "eslint-config-next": "13.0.6",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "lightweight-charts": "^3.8.0",
     "mini-css-extract-plugin": "^2.7.2",
     "moment": "^2.29.4",
     "mongodb": "^4.12.1",

@@ -36,7 +36,7 @@ const useTicker = () => {
   }, [cryptocurrencies]);
 
   useEffect(() => {
-    const interval = setInterval(fetchCrypto, 2000);
+    const interval = setInterval(fetchCrypto, 1000);
     return () => clearInterval(interval);
   });
 
