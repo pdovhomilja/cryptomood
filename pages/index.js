@@ -1,5 +1,3 @@
-import React from "react";
-
 import NoSSR from "../components/NoSSR";
 import Layout from "../components/Layout";
 import Ticker from "../components/Ticker";
@@ -13,12 +11,7 @@ const Home = () => {
             <h2 className="text-lg font-semibold leading-8 text-indigo-600">
               Aktual Token price
             </h2>
-            {/* TODO: header code */}
-
-            {/* Main content - crypto cards */}
             <Ticker />
-
-            {/* TODO: footer code */}
           </div>
         </div>
       </Layout>
