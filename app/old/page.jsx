@@ -9,13 +9,6 @@ export default function Home() {
   const [data, setData] = useState("");
   const selectedTokenRef = useRef(null);
 
-  const selectToken = (e) => {
-    e.preventDefault();
-    setToken(selectedTokenRef.current.value);
-    console.log(price, "Token price");
-    console.log(token, "Selected token");
-  };
-
   useEffect(() => {
     //Use the fetch function to make a GET request to the endpoint
     fetch(
@@ -32,10 +25,12 @@ export default function Home() {
       });
   }, [token]);
 
+  //Testing Destructuring Objects and Arrays
   useEffect(() => {
     fetch("/api/tokenList")
       .then((response) => response.json())
-      .then(({ data }) => {
+      .then((responseData) => {
+        const { data } = responseData;
         setData(
           data.map((data) => {
             return data;
@@ -45,6 +40,24 @@ export default function Home() {
       });
   }, []);
 
+  /*
+  useEffect(() => {
+    fetch("/api/tokenList")
+      .then((response) => response.json())
+      .then((data) => {
+        const { data: arrayData } = data;
+        arrayData.map((data) => {
+          //console.log(data.id, data.name, data.symbol);
+        });
+      });
+  }, []);
+*/
+  const selectToken = (e) => {
+    e.preventDefault();
+    setToken(selectedTokenRef.current.value);
+    console.log(price, "Token price");
+    console.log(token, "Selected token");
+  };
   //console.log(tokenCount, "Token count");
 
   if (!data) {
@@ -55,12 +68,6 @@ export default function Home() {
     );
   }
 
-  /*
-
-        {data.map((data) => (
-          <h1 key={data._id}>{data.id}</h1>
-        ))}
-  */
   return (
     <div className="bg-black flex flex-col items-center justify-center w-full h-screen mx-auto text-white">
       <div>Tokens listed: {tokenCount}</div>
@@ -73,7 +80,7 @@ export default function Home() {
             name="token"
             ref={selectedTokenRef}
           >
-            {data.map((data) => (
+            {data.slice(0, 20).map((data) => (
               <option key={data._id} value={data.id}>
                 {data.id}
               </option>

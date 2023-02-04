@@ -9,14 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "ccxt": "^2.5.30",
     "dotenv": "^16.0.3",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "express": "^4.18.2",
     "mongodb": "^4.12.1",
+    "needle": "^3.2.0",
     "next": "13.0.6",
     "nextjs-google-analytics": "^2.2.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "socket.io": "^4.5.4",
+    "socket.io-client": "^4.5.4",
+    "utf-8-validate": "^5.0.10",
+    "ws": "^8.12.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
