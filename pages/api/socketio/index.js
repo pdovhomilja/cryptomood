@@ -6,12 +6,9 @@ const SocketHandler = (req, res) => {
   const wsTrades = new WebSocket(
     "wss://stream.binance.com:9443/ws/ethusdt@trade"
   );
-
-  /*   const wsQuotas = new WebSocket(
-    "wss://stream.binance.com:9443/ws/ethusdt@depth"
-  ); */
-
-  //wss://stream.binance.com:9443/ws/ethusdt@ticker
+  const wsCandles = new WebSocket(
+    "wss://stream.binance.com:9443/ws/ethusdt@kline_1m"
+  );
 
   if (res.socket.server.io) {
     console.log("Socket is already running");
@@ -22,6 +19,7 @@ const SocketHandler = (req, res) => {
 
     let ethPrice;
     let tradeDate;
+    let CandleData;
 
     wsTrades.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -32,10 +30,18 @@ const SocketHandler = (req, res) => {
       console.log(ethPrice, "-", tradeDate, "ETH/USD");
     };
 
+    wsCandles.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      //console.log(data, "Candles data");
+      CandleData = data.k;
+    };
+
     io.on("connection", (socket) => {
-      //console.log(socket.on);
       socket.on("input-change", (msg) => {
         socket.broadcast.emit("update-input", ethPrice);
+      });
+      socket.on("candle-change", (msg) => {
+        socket.broadcast.emit("update-candle", CandleData);
       });
     });
   }
