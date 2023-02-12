@@ -77,11 +77,7 @@ const Ethereum = () => {
 
   useEffect(() => {
     const socketInitializer = async () => {
-      await fetch(
-        `${
-          process.env.VERCEL_URL || process.env.NEXT_PUBLIC_APP_URL
-        }/api/socketio`
-      );
+      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/socketio`);
       socket = io();
       socket.on("connect", () => {
         console.log("connected");
